@@ -13,6 +13,8 @@ const logRoutes = require('./middleware/logRoutes');
 
 const checkAuthentication = require('./middleware/checkAuthentication');
 
+require('dotenv').config();
+
 const { register, login, getMe, logout } = require('./controllers/authControllers');
 const { listUsers, updateUser, deleteUser } = require('./controllers/userControllers');
 const { listBookmarks, listUserBookmarks, createBookmark, updateBookmark, deleteBookmark } = require('./controllers/bookmarkControllers'); // NEW
@@ -33,7 +35,7 @@ app.use(logRoutes);
 // ✍️ TODO 3: Replace hard-coded secret with `process.env.SESSION_SECRET`
 app.use(cookieSession({
   name: 'session',
-  secret: 'dev-only-secret-replace-before-deploying',
+  secret: process.env.SESSION_SECRET,
   maxAge: 24 * 60 * 60 * 1000,
 }));
 app.use(express.json());
